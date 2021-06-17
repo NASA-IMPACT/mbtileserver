@@ -29,7 +29,7 @@ class StackSettings(pydantic.BaseSettings):
     # 2048 (2 vCPU)  | Between 4 GB and 16 GB in 1-GB increments
     # 4096 (4 vCPU)  | Between 8 GB and 30 GB in 1-GB increments
     task_cpu: int = 1024
-    task_memory: int = 3072 
+    task_memory: int = 2048
 
     image_version: str = "latest"
 

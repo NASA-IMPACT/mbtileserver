@@ -45,8 +45,10 @@ export MBTILESERVER_STACK_IMAGE_VERSION="057db5a-2021-06-17-14-47-37"
 export MBTILESERVER_STACK_MIN_ECS_INSTANCES=10
 export MBTILESERVER_STACK_MAX_ECS_INSTANCES=50
 export MBTILESERVER_STACK_TASK_CPU=1024
-export MBTILESERVER_STACK_TASK_MEMORY=3072 # enough to keep all mbtiles files in memory?
+export MBTILESERVER_STACK_TASK_MEMORY=2048
 ```
+
+The Task Memory should be at least 1.4G per https://github.com/consbio/mbtileserver/issues/111#issuecomment-863414620
 
 Valid CPU and Memory values:
 
@@ -58,6 +60,8 @@ Valid CPU and Memory values:
 # 2048 (2 vCPU)  | Between 4 GB and 16 GB in 1-GB increments
 # 4096 (4 vCPU)  | Between 8 GB and 30 GB in 1-GB increments
 ```
+
+https://github.com/consbio/mbtileserver/issues/111#issuecomment-863414620
 
 4. Deploy
 
