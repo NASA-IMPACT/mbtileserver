@@ -71,7 +71,12 @@ images that have not yet been deployed to it to run the Tasks. We solve this by 
 that succeeds. Alternately, manually create an ECR repository called 'mbtileserver' and push the Docker image to it 
 before the first deploy.
 
+
 ```bash
+# Set CDK variables to allow Hosted Zone lookup
+export CDK_DEPLOY_ACCOUNT=$(aws sts get-caller-identity | jq .Account -r)
+export CDK_DEPLOY_REGION $(aws configure get region)
+
 # Deploys the stack(s) mbtileserver-ecs-dev in cdk/app.py
 $ npm run cdk deploy mbtileserver-ecs-dev  # or whatever MBTILESERVER_STACK_STAGE is set to
 ```

@@ -11,6 +11,8 @@ from aws_cdk import aws_iam as iam
 from aws_cdk import core
 from config import StackSettings
 from aws_cdk import aws_ecr
+from aws_cdk import aws_elasticloadbalancingv2
+from aws_cdk import aws_route53
 
 settings = StackSettings()
 
@@ -31,7 +33,9 @@ class mbtileserverLECSStack(core.Stack):
         **kwargs: Any,
     ) -> None:
         """Define stack."""
-        super().__init__(scope, id, *kwargs)
+        super().__init__(scope, id, env=core.Environment(
+            account=os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"]),
+            region=os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"])), *kwargs)
 
         permissions = permissions or []
         env = env or {}
@@ -69,7 +73,10 @@ class mbtileserverLECSStack(core.Stack):
             cluster=cluster,
             desired_count=mincount,
             public_load_balancer=True,
-            listener_port=80,
+            protocol=aws_elasticloadbalancingv2.ApplicationProtocol.HTTPS,
+            domain_name=f"mbtileserver.{settings.stage}.maap-project.org",
+            domain_zone=aws_route53.HostedZone.from_lookup(self, f"{id}-hosted-zone",
+                domain_name="maap-project.org"),
             task_definition=task_definition
         )
         fargate_service.target_group.configure_health_check(path="/services")
