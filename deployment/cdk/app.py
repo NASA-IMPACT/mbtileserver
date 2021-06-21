@@ -77,6 +77,7 @@ class mbtileserverLECSStack(core.Stack):
             domain_name=f"mbtileserver.{settings.stage}.maap-project.org",
             domain_zone=aws_route53.HostedZone.from_lookup(self, f"{id}-hosted-zone",
                 domain_name="maap-project.org"),
+            redirect_http=True,
             task_definition=task_definition
         )
         fargate_service.target_group.configure_health_check(path="/services")
