@@ -61,12 +61,10 @@ Valid CPU and Memory values:
 # 4096 (4 vCPU)  | Between 8 GB and 30 GB in 1-GB increments
 ```
 
-https://github.com/consbio/mbtileserver/issues/111#issuecomment-863414620
-
 4. Deploy
 
 Deployment presents a chicken-and-egg problem.  The deployment creates the ECR repository, but also needs the
-images that have not yet been deployed to it to run the Tasks. We solve this by first doing a deployment that fails
+images that have not yet been deployed to it to run the tasks. We solve this by first doing a deployment that fails
 (but creates the ECR repository), then publishing the Docker image to the ECR, and finally doing another deployment
 that succeeds. Alternately, manually create an ECR repository called 'mbtileserver' and push the Docker image to it 
 before the first deploy.
@@ -94,7 +92,7 @@ $ make
 
 6. Update the image version and redeploy
 
-Configure `MBTILESERVER_STACK_IMAGE_VERSION` to be the image version you want to deploy, e.g., the output of your previous make.
+Configure `MBTILESERVER_STACK_IMAGE_VERSION` to be the image version you want to deploy, i.e., the output of your previous make.
 
 Then, deploy again:
 
